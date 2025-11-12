@@ -94,7 +94,9 @@ def tablero_aleatorio(tablero):
 
 #Coordenadas
 def coordenada_letra_correcta(coordenada):
-    if len(coordenada) != 1:
+    if coordenada == "SALIR":
+        return True
+    elif len(coordenada) != 1:
         return False
     elif coordenada < "A" or coordenada > "J":
         return False
@@ -114,13 +116,17 @@ def pedir_coordenadas():
     j = 0
     while coordenada_letra_correcta(i) == False:
         i = input("Introduce la primera coordenada ALFABÉTICA o introduce SALIR: ").upper().strip()
-    i = alfabeto.index(i)
-    while coordenada_numero_correcto(j) == False:
-        try:
-            j = int(input("Introduce la segunda coordenada NUMÉRICA: "))
-        except:
-            print("Introduce un número entre 1 y 10")
-    j =int(j) - 1
+    if i == "SALIR":
+        i = "salir"
+    else:
+        i = alfabeto.index(i)
+    if i != "salir":
+        while coordenada_numero_correcto(j) == False:
+            try:
+                j = int(input("Introduce la segunda coordenada NUMÉRICA: "))
+            except:
+                print("Introduce un número entre 1 y 10")
+        j =int(j) - 1
 
     return i, j
 
