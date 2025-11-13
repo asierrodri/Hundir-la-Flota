@@ -218,3 +218,4 @@ Difícil - 3\n""")
     else:
         print("Introduce una opción valida")
         time.sleep(1.5)
+        

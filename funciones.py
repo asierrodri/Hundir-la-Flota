@@ -157,3 +157,4 @@ def coordenadas_repetidas(i, j, tablero):
         return True
     else:
         return False
+    
