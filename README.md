@@ -23,15 +23,15 @@ El objetivo del juego es adivinar la posición de los barcos del rival disparand
 ```bash
 git clone https://github.com/asierrodri/Hundir-la-Flota.git
 cd Hundir-la-Flota
-'''
+```
 
 2. Asegúrate de tener Python 3 instalado.
 
 3. Ejecuta el juego:
 
-'''bash
+```bash
 python main.py
-'''
+```
 
 📌 Reglas básicas
 
