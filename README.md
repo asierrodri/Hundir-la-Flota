@@ -33,20 +33,15 @@ cd Hundir-la-Flota
 python main.py
 ```
 
-📌 Reglas básicas
+## 📌 Reglas básicas
 
-El tablero se genera con los barcos colocados automáticamente.
+- El tablero se genera con los barcos colocados automáticamente.
+- El jugador introduce coordenadas para disparar.
+- El programa indica si has hecho agua, tocado o hundido.
+- La partida termina cuando se hunden todos los barcos.
 
-El jugador introduce coordenadas para disparar.
+## 🔧 Posibles mejoras futuras
 
-El programa indica si has hecho agua, tocado o hundido.
-
-La partida termina cuando se hunden todos los barcos.
-
-🔧 Posibles mejoras futuras
-
-Añadir modo de dos jugadores.
-
-Mejorar la interfaz en consola (colores, mensajes, etc.).
-
-Crear una versión con interfaz gráfica o API web.
+- Añadir modo de dos jugadores.
+- Mejorar la interfaz en consola (colores, mensajes, etc.).
+- Crear una versión con interfaz gráfica o API web.
