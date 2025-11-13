@@ -15,7 +15,7 @@ print("║                              ║")
 print("╚══════════════════════════════╝")
 
 time.sleep(1)
-#Poder salir cuando quieras, instrucciones de juego, volver a jugar, Jugar
+#Poder salir cuando quieras, instrucciones de juego, Jugar
 while salir == False:
 
     print("""\n\n¡Bienvenido al juego Hundir la Flota! El objetivo es hundir
@@ -48,6 +48,8 @@ se marcará con una "x". De esta forma el jugador puede saber las cuadrículas q
 quedan en blanco y en las que ya ha disparado.\n
 Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
 
+        time.sleep(1.5)
+
     elif opcion == "2":
         print("TABLERO USUARIO")
         pintar_tablero(tablero_usuario)
@@ -67,10 +69,9 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
                 print("Tu Turno!")
                 time.sleep(0.5)
 
-                i, j = pedir_coordenadas()
+                i, j, l = pedir_coordenadas()
 
                 if i == "salir":
-                    salir = True
                     turno_jugador = False
                     fin_juego = True
                     turno_maquina = False
@@ -81,8 +82,7 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
                 elif disparo_acertado(i, j, tablero_maquina) == True:
                     tablero_maquina_oculto[i][j] = "x"
                     tablero_maquina[i][j] = "x"
-                    #pintar bien la posicion
-                    print("Tocado en posición " + str(i) + "," + str(j))
+                    print("Tocado en posición " + str(l) + str(j+1))
                     time.sleep(0.5)
                     vidas_maquina -= 1
                     if vidas_maquina == 0:
@@ -110,6 +110,7 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
                 while turno_maquina == True:
                     
                     i = coordenadas_maquina()
+                    l = alfabeto[i]
                     j = coordenadas_maquina()
 
                     if coordenadas_repetidas(i, j, tablero_usuario) == True:
@@ -119,8 +120,7 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
                         tablero_usuario[i][j] = "x"
                         print("Turno de la máquina!")
                         time.sleep(0.5)
-                        #coger la letra por index del alfabeto y sumarle un número al int
-                        print("Tocado en posición " + str(i) + "," + str(j))
+                        print("Tocado en posición " + str(l) + str(j+1))
                         time.sleep(0.5)
                         print("La máquina vuelve a disparar")
                         vidas_jugador -= 1
@@ -152,3 +152,4 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
 
     else:
         print("Introduce una opción valida")
+        time.sleep(1.5)

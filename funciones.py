@@ -43,6 +43,7 @@ def colocar_barco(letra, barco, tablero_con_barcos):
         if direccion == 0:
             while tamano_barco > 0:
                 if tablero_con_barcos[i][j+c] != "·":
+                    #Si no ponía las dos se quedaba colgado
                     colocar = False
                     break
                 else:
@@ -98,6 +99,7 @@ def coordenada_letra_correcta(coordenada):
         return True
     elif len(coordenada) != 1:
         return False
+    #Me funcionó y no se me ocurrió otra forma
     elif coordenada < "A" or coordenada > "J":
         return False
     else:
@@ -113,12 +115,14 @@ def pedir_coordenadas():
     from variables import alfabeto
 
     i = ""
+    l = ""
     j = 0
     while coordenada_letra_correcta(i) == False:
         i = input("Introduce la primera coordenada ALFABÉTICA o introduce SALIR: ").upper().strip()
     if i == "SALIR":
         i = "salir"
     else:
+        l = i
         i = alfabeto.index(i)
     if i != "salir":
         while coordenada_numero_correcto(j) == False:
@@ -128,7 +132,7 @@ def pedir_coordenadas():
                 print("Introduce un número entre 1 y 10")
         j =int(j) - 1
 
-    return i, j
+    return i, j, l
 
 def coordenadas_maquina():
     import random
