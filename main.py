@@ -51,6 +51,11 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
         time.sleep(1.5)
 
     elif opcion == "2":
+
+        tablero_usuario = tablero_aleatorio(tablero_vacio)
+        tablero_maquina = tablero_aleatorio(tablero_vacio)
+        tablero_maquina_oculto = deepcopy(tablero_vacio)
+
         print("TABLERO USUARIO")
         pintar_tablero(tablero_usuario)
         cambiar = input("Introduce 'cambiar' si prefieres otro tablero, sino pulsa ENTER: ").lower().strip()
@@ -61,6 +66,22 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
         print("TABLERO MÁQUINA")
         pintar_tablero(tablero_maquina_oculto)
 
+        print("""Elige nivel de dificultad:\n\n
+Fácil - 1\n
+Medio - 2\n
+Difícil - 3\n""")
+        dificultad_correcto = False
+        while dificultad_correcto == False:
+            try:
+                dificultad = int(input("Introduce una opción: ").strip())
+                if dificultad > 0 and dificultad < 4:
+                    dificultad_correcto = True
+                else:
+                    print("Introduce 1, 2 o 3")
+            except:
+                    print("Introduce 1, 2 o 3")
+
+        fin_juego = False
         while fin_juego == False:
             turno_jugador = True
             turno_maquina = True
@@ -97,7 +118,7 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
                 elif disparo_agua(i, j, tablero_maquina) == True:
                     tablero_maquina_oculto[i][j] = "o"
                     tablero_maquina[i][j] = "o"
-                    print("Agua")
+                    print("Agua en " + str(l) + str(j+1))
                     turno_jugador = False
                     pintar_tablero(tablero_maquina_oculto)
 
@@ -107,11 +128,40 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
 
             time.sleep(1.5)
             if vidas_maquina > 0:
+                #Para dificultad 2 y 3
+                c = 3
+                #Para dificultad 3
+                d = False
                 while turno_maquina == True:
-                    
-                    i = coordenadas_maquina()
-                    l = alfabeto[i]
-                    j = coordenadas_maquina()
+
+                    if dificultad == 1 or dificultad == 2:
+                        i = coordenadas_maquina()
+                        l = alfabeto[i]
+                        j = coordenadas_maquina()
+                    #Para dificultad 3
+                    if dificultad == 3:
+                        if d == False:
+                            i = coordenadas_maquina()
+                            l = alfabeto[i]
+                            j = coordenadas_maquina()
+                        else:
+                            
+                            if i != 9 and tablero_usuario[i+1][j] != "o" and tablero_usuario[i+1][j] != "x":
+                                i += 1
+                            
+                            elif i != 1 and tablero_usuario[i-1][j] != "o" and tablero_usuario[i-1][j] != "x":
+                                i -= 1
+                            
+                            elif j != 9 and tablero_usuario[i][j+1] != "o" and tablero_usuario[i][j+1] != "x":
+                                j += 1
+                            
+                            elif j != 1 and tablero_usuario[i][j-1] != "o" and tablero_usuario[i][j-1] != "x":
+                                j -= 1
+
+                            else:
+                                d = False
+
+                            l = alfabeto[i]
 
                     if coordenadas_repetidas(i, j, tablero_usuario) == True:
                         pass
@@ -127,12 +177,27 @@ Finalmente, gana el jugador que antes consigue hundir la flota del otro.\n""")
                         time.sleep(0.5)
                         pintar_tablero(tablero_usuario)
 
+                        if dificultad == 3:
+                            d = True
+
                     elif disparo_agua(i, j, tablero_usuario) == True:
-                        tablero_usuario[i][j] = "o"
-                        print("Turno de la máquina!")
-                        time.sleep(0.5)
-                        print("Agua")
-                        turno_maquina = False
+
+                        if dificultad == 1 or (dificultad == 3 and d == True):
+                            tablero_usuario[i][j] = "o"
+                            print("Turno de la máquina!")
+                            time.sleep(0.5)
+                            print("Agua en " + str(l) + str(j+1))
+                            turno_maquina = False
+
+                        #Tiene 3 intentos para acertar
+                        elif dificultad == 2 or (dificultad == 3 and d == False):
+                            c -= 1
+                            if c == 0:
+                                tablero_usuario[i][j] = "o"
+                                print("Turno de la máquina!")
+                                time.sleep(0.5)
+                                print("Agua en " + str(l) + str(j+1))
+                                turno_maquina = False
 
                     else:
                         print("Error desconocido")
